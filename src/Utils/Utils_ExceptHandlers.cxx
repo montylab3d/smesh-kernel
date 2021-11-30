@@ -26,11 +26,14 @@
 //              <ota@localhost.localdomain>
 //
 #include "Utils_ExceptHandlers.hxx"
+#ifndef SMESH_ONLY
 #include "Utils_CorbaException.hxx"
+#include "Utils_SALOME_Exception.hxx"
 #include "Utils_SALOME_Exception.hxx"
 
 #include <sstream>
 #ifdef WIN32
+#include <Windows.h>
 #include "DbgHelp.h"
 #include <WinBase.h>
 #pragma comment(lib, "Dbghelp.lib")
@@ -40,8 +43,10 @@
 #include <cxxabi.h>
 #endif
 
+#ifndef SMESH_ONLY
 #include <SALOMEconfig.h>
 #include CORBA_SERVER_HEADER(SALOME_Exception)
+#endif
 
 //#define NBLINES_BACKTRACE 64
 #ifdef WIN32
@@ -142,6 +147,8 @@ void SALOME_SalomeException()
   txt << "INTERNAL_ERROR, backtrace stack:" << nbLines << std::endl;
   printBacktrace(stacklines, nbLines, txt);
 #endif
+#ifndef SMESH_ONLY
   THROW_SALOME_CORBA_EXCEPTION(txt.str().c_str(), SALOME::INTERNAL_ERROR);
+#endif
 }
 
