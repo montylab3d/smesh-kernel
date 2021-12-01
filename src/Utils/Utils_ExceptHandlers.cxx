@@ -28,7 +28,7 @@
 #include "Utils_ExceptHandlers.hxx"
 #ifndef SMESH_ONLY
 #include "Utils_CorbaException.hxx"
-#include "Utils_SALOME_Exception.hxx"
+#endif
 #include "Utils_SALOME_Exception.hxx"
 
 #include <sstream>
